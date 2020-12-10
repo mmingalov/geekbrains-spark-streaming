@@ -12,7 +12,8 @@ raw_rate = spark \
     .format("rate") \
     .load()
 
-raw_rate.printSchema()
+
+
 
 raw_rate.isStreaming
 
