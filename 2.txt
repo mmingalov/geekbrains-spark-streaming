@@ -1,0 +1,19 @@
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --create --topic lesson2 --zookeeper bigdataanalytics-worker-0.novalocal:2181 --partitions 3 --replication-factor 2 --config retention.ms=-1
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --create --topic lesson2 --zookeeper bigdataanalytics-worker-1.novalocal:2181,bigdataanalytics-worker-3.novalocal:2181 --partitions 3 --replication-factor 2 --config retention.ms=-1
+
+
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --zookeeper bigdataanalytics-worker-0.novalocal:2181 --alter --config retention.ms=17280000000 --topic lesson2
+
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --zookeeper bigdataanalytics-worker-0.novalocal:2181 --alter --config retention.ms=1 --topic lesson2
+
+
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --zookeeper bigdataanalytics-worker-0.novalocal:2181 --delete --topic lesson2
+
+
+
+
+
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-console-consumer.sh --topic lesson2 --from-beginning --bootstrap-server bigdataanalytics-worker-0.novalocal:6667 
+
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-console-producer.sh --topic lesson2 --broker-list bigdataanalytics-worker-0.novalocal:6667 
+

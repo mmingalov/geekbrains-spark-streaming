@@ -1,0 +1,23 @@
+Добавить в C:\Windows\System32\drivers\etc\hosts (или hosts на вашей ОС)
+185.241.193.174 bigdataanalytics-head-0.novalocal
+89.208.223.141 bigdataanalytics-worker-0.novalocal
+89.208.197.93 bigdataanalytics-worker-2.novalocal
+++++++++++++++
+Заходить можно на любую ноду. Нужно где нибудь мне написать логин в зепелине, чтобы я прислал приватный ключ. Логин на сервера будет такой же как в зепелине.
+++++++++++++++
+Ambari хост: http://185.241.193.174:8080/#
+Ambari Логин:Пароль monitor:monitor
+++++++++++++++
+Устанавливаем Spark в PyCharm:
+Spark на windows (или вашу ОС) качаем отсюда
+https://spark.apache.org/downloads.html
+Качаем версию 2.4.7! Распаковываем. Больше ничего не делаем с ним.
+Далее следуем инструкции из видео https://www.youtube.com/watch?v=RsALKtZvqFo либо из любой другой инструкции по запросу PyCharm Spark
+++++++++++++++
+Зайти в телеграм канал: https://t.me/joinchat/EyCjfR2bGv4-DMTS-NmrnQ
+В канале можно спрашивать технические вопросы по курсу. Очень будет круто, если сможете помогать друг другу. ( Или мне с питоном :) )
+++++++++++++++
+Практика к уроку приложена. Задание - повторить ее в консоли и открыть в IDE как у меня.
+++++++++++++++
+Документация
+https://spark.apache.org/docs/2.4.0/structured-streaming-programming-guide.html
