@@ -1,3 +1,5 @@
+#Structured Streaming
+
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
 from pyspark.sql.types import StructType, StringType
