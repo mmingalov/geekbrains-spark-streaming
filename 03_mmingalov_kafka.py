@@ -1,5 +1,5 @@
 # export SPARK_KAFKA_VERSION=0.10
-# pyspark2 --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2
+# pyspark --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
