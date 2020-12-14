@@ -14,3 +14,6 @@
 
 *******************************************************
 Создать свои топик в kafka. Поиграться с retention time, console-consumer, console-producer
+
+#creating a new topic
+/usr/hdp/3.1.4.0-315/kafka/bin/kafka-topics.sh --create --topic mmingalov2 --zookeeper bigdataanalytics-worker-0.novalocal:2181 --partitions 3 --replication-factor 2 --config retention.ms=-1
