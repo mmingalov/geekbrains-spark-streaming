@@ -1,5 +1,6 @@
 # export SPARK_KAFKA_VERSION=0.10
 # pyspark --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2
+# pyspark --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2 --master local[1]
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -37,6 +38,7 @@ raw_orders = spark.read. \
     option("startingOffsets", "earliest"). \
     option("endingOffsets", """{"orders_json":{"0":20}}"""). \
     load()
+#
 
 raw_orders.show(100)
 
@@ -125,3 +127,20 @@ def console_output_checkpointed(df, freq):
 
 out = console_output_checkpointed(parsed_orders, 5)
 out.stop()
+
+
+########################################################################################################
+schema = StructType() \
+    .add("sepalLength", StringType()) \
+    .add("sepalWidth", StringType()) \
+    .add("petalLength", StringType()) \
+    .add("petalWidth", StringType()) \
+    .add("species", StringType())
+
+#все разом
+raw_files = spark \
+    .readStream \
+    .format("json") \
+    .schema(schema) \
+    .options(path="input_csv_for_stream", header=True) \
+    .load()
