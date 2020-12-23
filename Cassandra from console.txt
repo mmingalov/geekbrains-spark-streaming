@@ -1,0 +1,51 @@
+CASSANDRA:
+
+/cassandra/bin/cassandra #(находясь на worker2 - запускает базу, если она упала)
+
+/cassandra/bin/cqlsh 10.0.0.18 #(подключиться к касандре через консоль)
+
+#создать схему
+CREATE  KEYSPACE  lesson7 
+   WITH REPLICATION = { 
+      'class' : 'SimpleStrategy', 'replication_factor' : 1 } ;
+
+CREATE TABLE animals
+(id int, 
+name text,
+size text,
+primary key (id));
+
+
+insert into animals (id, name, size)
+values (3, 'Deer', 'Big');
+
+select * from animals;
+
+#апдейт записи 3
+insert into animals (id, name)
+values (3, 'Doe' );
+
+
+insert into animals (id, name)
+values (5, 'Snake');
+
+#не сработает
+delete id from animals where id = 3;
+
+insert into animals (id, name, size)
+values (3, null, null);
+
+
+
+
+HBASE (на любой ноде):
+hbase shell
+create_namespace 'lesson7'
+create 'lesson7:animals', 'name', 'size'
+
+put 'lesson7:animals', '3', 'name', 'Deer'
+put 'lesson7:animals', '3', 'size', 'Big'
+put 'lesson7:animals', '5', 'name', 'Snake'
+
+put 'lesson7:animals', '3', 'name', 'Doe'
+delete 'lesson7:animals', '5'
