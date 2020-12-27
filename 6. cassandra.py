@@ -5,7 +5,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StringType, IntegerType, TimestampType
 from pyspark.sql import functions as F
 
-spark = SparkSession.builder.appName("gogin_spark").getOrCreate()
+spark = SparkSession.builder.appName("mmingalov_spark").getOrCreate()
 
 def explain(self, extended=True):
     if extended:
