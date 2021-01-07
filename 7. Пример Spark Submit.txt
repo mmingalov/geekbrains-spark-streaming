@@ -1,0 +1,23 @@
+spark-submit --conf spark.hadoop.hive.exec.max.dynamic.partitions=10000 \
+--conf spark.hadoop.hive.exec.max.dynamic.partitions.pernode=3000 \
+--conf spark.hadoop.hive.exec.dynamic.partition.mode=nonstrict \
+--conf spark.hadoop.hive.eror.on.empty.partition=true \
+--conf spark.hadoop.hive.exec.dynamic.partition=true \
+--conf spark.sql.parquet.compression.codec=gzip \
+--conf spark.sql.catalogImplementation=hive \
+--conf spark.serializer=org.apache.spark.serializer.KryoSerializer \
+--conf spark.kryoserializer.buffer=128M \
+--conf spark.kryoserializer.buffer.max=2000M \
+--conf spark.sql.broadcastTimeout=6000 \
+--conf spark.network.timeout=600s \
+--conf spark.driver.memory=20g \
+--conf spark.driver.memoryOverhead=3g \
+--conf spark.executor.memory=20g \
+--conf spark.executor.memoryOverhead=3g \
+--conf spark.dynamicAllocation.enabled=true \
+--conf spark.shuffle.service.enabled=true \
+--conf spark.dynamicAllocation.maxExecutors=100 \
+--conf spark.sql.shuffle.partitions=300 \
+--conf spark.shuffle.service.enabled=true \
+my_script.py
+ 
