@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://C:/temp/spark-2.4.7-bin-hadoop2.7/spark-2.4.7-bin-hadoop2.7/python" />
+    <content url="file://C:/Temp/spark-2.4.7-bin-hadoop2.7/python" />
     <content url="file://$MODULE_DIR$" />
-    <content url="jar://C:/temp/spark-2.4.7-bin-hadoop2.7/spark-2.4.7-bin-hadoop2.7/python/lib/py4j-0.10.7-src.zip!/" />
-    <orderEntry type="inheritedJdk" />
+    <content url="jar://C:/Temp/spark-2.4.7-bin-hadoop2.7/python/lib/py4j-0.10.7-src.zip!/" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (geekbrains-spark-streaming)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-  <component name="TestRunnerService">
-    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
   </component>
 </module>

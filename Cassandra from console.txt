@@ -31,6 +31,7 @@ values (5, 'Snake');
 
 #не сработает
 delete id from animals where id = 3;
+delete from animals where id = 3;
 
 insert into animals (id, name, size)
 values (3, null, null);
