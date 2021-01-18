@@ -53,7 +53,7 @@ pipeline = Pipeline().setStages(stages)
 pipelineModel = pipeline.fit(users_known)
 
 #сохраняем модель на HDFS
-pipelineModel.write().overwrite().save("my_LR_model8")
+pipelineModel.write().overwrite().save("mmingalov_LR_model8")
 
 ###для наглядности
 pipelineModel.transform(users_known).select("segment", "category").show(100)  #можно посчитать процент полной сходимости
