@@ -8,7 +8,7 @@ from pyspark.sql.types import *
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml.feature import OneHotEncoderEstimator, VectorAssembler, CountVectorizer, StringIndexer, IndexToString
 
-spark = SparkSession.builder.appName("mmingalov_spark").getOrCreate()
+spark = SparkSession.builder.appName("mmingalov_spark").getOrCreate() #не нужна для консоли, только для IDE
 train = spark.read\
     .option("header", True)\
     .csv("winequality-red.csv", sep=',')\
