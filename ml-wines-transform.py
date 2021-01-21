@@ -254,9 +254,11 @@ def writer_logic(df, epoch_id):
              F.lit(0.0).alias("alcohol"))
     print("Here is the sums from Kafka source:")
     features_from_kafka.show()
-    teachsers_list_df = features_from_kafka.select("id").distinct()
+
+    tt_list_df = features_from_kafka.select("id").distinct()
     #превращаем DataFrame(Row) в Array(Row)
-    wines_list_rows = teachsers_list_df.collect()
+    wines_list_rows = tt_list_df.collect()
+
     #превращаем Array(Row) в Array(String)
     wines_list = map( lambda x: str(x.__getattr__("id")) , wines_list_rows)
     where_string = " id = " + " or id = ".join(wines_list)
@@ -268,6 +270,7 @@ def writer_logic(df, epoch_id):
     features_from_cassandra.persist()
     print("I've replaced nulls with 0 from Cassandra:")
     features_from_cassandra.show()
+
     #объединяем микробатч из кафки и микробатч касандры
     cassandra_file_union = features_from_kafka.union(features_from_cassandra)
     cassandra_file_aggregation = cassandra_file_union.groupBy("id") \
