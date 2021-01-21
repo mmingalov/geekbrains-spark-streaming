@@ -240,18 +240,19 @@ def writer_logic(df, epoch_id):
     print("---------I've got new batch--------")
     print("This is what I've got from Kafka source:")
     df.show()
-    features_from_kafka = df.groupBy("id") \
-        .agg(F.lit(0.0).alias("fixed_acidity"),
-             F.lit(0.0).alias("volatile_acidity"), \
-             F.lit(0.0).alias("citric_acid"), \
-             F.lit(0.0).alias("residual_sugar"), \
-             F.lit(0.0).alias("chlorides"),
-             F.lit(0.0).alias("free_sulfur_dioxide"), \
-             F.lit(0.0).alias("total_sulfur_dioxide"), \
-             F.lit(0.0).alias("density"), \
-             F.lit(0.0).alias("ph"), \
-             F.lit(0.0).alias("sulphates"), \
-             F.lit(0.0).alias("alcohol"))
+    features_from_kafka = df
+    # features_from_kafka = df.groupBy("id") \
+    #     .agg(F.lit(0.0).alias("fixed_acidity"),
+    #          F.lit(0.0).alias("volatile_acidity"), \
+    #          F.lit(0.0).alias("citric_acid"), \
+    #          F.lit(0.0).alias("residual_sugar"), \
+    #          F.lit(0.0).alias("chlorides"),
+    #          F.lit(0.0).alias("free_sulfur_dioxide"), \
+    #          F.lit(0.0).alias("total_sulfur_dioxide"), \
+    #          F.lit(0.0).alias("density"), \
+    #          F.lit(0.0).alias("ph"), \
+    #          F.lit(0.0).alias("sulphates"), \
+    #          F.lit(0.0).alias("alcohol"))
     print("Here is the sums from Kafka source:")
     features_from_kafka.show()
 
@@ -272,27 +273,30 @@ def writer_logic(df, epoch_id):
     features_from_cassandra.show()
 
     #объединяем микробатч из кафки и микробатч касандры
-    cassandra_file_union = features_from_kafka.union(features_from_cassandra)
-    cassandra_file_aggregation = cassandra_file_union.groupBy("id") \
-        .agg(F.lit("fixed_acidity").alias("fixed_acidity"),
-             F.lit("volatile_acidity").alias("volatile_acidity"), \
-             F.lit("citric_acid").alias("citric_acid"), \
-             F.lit("residual_sugar").alias("residual_sugar"), \
-             F.lit("chlorides").alias("chlorides"),
-             F.lit("free_sulfur_dioxide").alias("free_sulfur_dioxide"), \
-             F.lit("total_sulfur_dioxide").alias("total_sulfur_dioxide"), \
-             F.lit("density").alias("density"), \
-             F.lit("ph").alias("ph"), \
-             F.lit("sulphates").alias("sulphates"), \
-             F.lit("alcohol").alias("alcohol"))
-    print("Here is how I aggregated Cassandra and file:")
-    cassandra_file_aggregation.show()
-    predict = pipeline_model.transform(cassandra_file_aggregation)
+    # cassandra_file_union = features_from_kafka.union(features_from_cassandra)
+    # cassandra_file_aggregation = cassandra_file_union.groupBy("id") \
+    #     .agg(F.lit("fixed_acidity").alias("fixed_acidity"),
+    #          F.lit("volatile_acidity").alias("volatile_acidity"), \
+    #          F.lit("citric_acid").alias("citric_acid"), \
+    #          F.lit("residual_sugar").alias("residual_sugar"), \
+    #          F.lit("chlorides").alias("chlorides"),
+    #          F.lit("free_sulfur_dioxide").alias("free_sulfur_dioxide"), \
+    #          F.lit("total_sulfur_dioxide").alias("total_sulfur_dioxide"), \
+    #          F.lit("density").alias("density"), \
+    #          F.lit("ph").alias("ph"), \
+    #          F.lit("sulphates").alias("sulphates"), \
+    #          F.lit("alcohol").alias("alcohol"))
+    # print("Here is how I aggregated Cassandra and file:")
+    # cassandra_file_aggregation.show()
+
+    # объединяем микробатч из кафки и микробатч касандры
+    cassandra_file_joined = features_from_kafka.join(features_from_cassandra, "id")
+    predict = pipeline_model.transform(cassandra_file_joined)
     print("I've got the prediction:")
     predict.show()
-    predict_short = predict.select('id', 'fixed acidity','volatile acidity','citric acid',
-                                   'residual sugar','chlorides','free sulfur dioxide',
-                                   'total sulfur dioxide','density','ph','sulphates','alcohol',
+    predict_short = predict.select('id', 'fixed acidity', 'volatile acidity', 'citric acid',
+                                   'residual sugar', 'chlorides', 'free sulfur dioxide',
+                                   'total sulfur dioxide', 'density', 'ph', 'sulphates', 'alcohol',
                                    F.col('predicted_quality').cast(FloatType()).alias('quality'))
     print("Here is what I've got after model transformation:")
     predict_short.show()
